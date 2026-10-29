@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"repository": "gitblogapp/svelte-gitblog-template",
+	"developmentRepository": "gitblogapp/svelte-gitblog-template-dev",
+	"minimumVersion": "2.0.0",
+	"files": [
+		".env.example",
+		".env.production",
+		".gitignore",
+		".pages.yml",
+		".npmrc",
+		"package.json",
+		"package-lock.json",
+		"svelte.config.js",
+		"tsconfig.json",
+		"vite.config.ts"
+	],
+	"directories": ["src", "static", "content", "docs/gitblog", "scripts"],
+	"metadata": [
+		".gitblog/authoring.json",
+		".gitblog/update-policy.json",
+		".gitblog/user-instructions.md"
+	],
+	"workflows": [
+		"deploy.yml",
+		"hub-discussion-comment.yml",
+		"post-history-worker.yml",
+		"post-history.yml",
+		"register-blog.yml",
+		"sync-hub.yml"
+	],
+	"omitDependencies": [
+		"@eslint/compat",
+		"@eslint/js",
+		"eslint",
+		"eslint-config-prettier",
+		"eslint-plugin-svelte",
+		"globals",
+		"prettier",
+		"prettier-plugin-svelte",
+		"typescript-eslint",
+		"robots-parser",
+		"js-yaml"
+	]
+}

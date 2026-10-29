@@ -13,6 +13,7 @@ concurrency:
 
 jobs:
   validate:
+    if: github.repository != 'gitblogapp/svelte-gitblog-template-dev'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

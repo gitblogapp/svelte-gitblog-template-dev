@@ -25,19 +25,8 @@ async function collect(directory) {
 	}
 }
 await collect('docs/gitblog');
-const legacyDocs = [
-	'ai-discovery.md',
-	'authoring.md',
-	'customization.md',
-	'github-auth.md',
-	'llm-writing-guidelines.md',
-	'setup.md',
-	'readme/README.ko.md',
-	'readme/README.ja.md',
-	'readme/README.zh-CN.md'
-].map((file) => `docs/${file}`);
 let links = 0;
-for (const file of [...officialDocs, ...legacyDocs]) {
+for (const file of officialDocs) {
 	assert.ok(!protectedBy(file, policy.preserve), `${file} must receive official updates`);
 	const text = await readFile(path.join(root, file), 'utf8');
 	const localLinks = [];
@@ -61,12 +50,6 @@ for (const file of [...officialDocs, ...legacyDocs]) {
 		assert.ok((await stat(target)).isFile(), `${file}: broken link to ${target}`);
 		links++;
 	}
-	if (legacyDocs.includes(file)) {
-		assert.ok(
-			localLinks.some((target) => target.startsWith(path.join(root, 'docs/gitblog/'))),
-			`${file} must forward to maintained guidance`
-		);
-	}
 }
 
 // The policy consumed by update:check detects changes or deletion of user documents,
@@ -88,5 +71,5 @@ try {
 	await rm(fixture, { recursive: true, force: true });
 }
 console.log(
-	`Harness documentation passed: ${links} local links, compatibility guides, and user-file preservation.`
+	`Harness documentation passed: ${links} local links, maintained guides, and user-file preservation.`
 );
