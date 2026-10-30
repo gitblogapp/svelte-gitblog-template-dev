@@ -34,7 +34,7 @@ const writePost = async (locale, name, id, extra = '') => {
 	await mkdir(dir, { recursive: true });
 	await writeFile(
 		path.join(dir, `${name}.md`),
-		`---\nid: ${id}\ntitle: SEO ${locale}\ndescription: Translated SEO fixture\nprivateNote: NEVER_EXPORT_THIS_METADATA\ndate: ${postDate}\nupdated: ${updated}\n${extra}\n---\n## SEO fixture\n\nPublished article in ${locale}.\n`
+		`---\nid: ${id}\ntitle: SEO ${locale}\ndescription: Translated SEO fixture\ncover: /assets/icons/favicon-96x96.png\nprivateNote: NEVER_EXPORT_THIS_METADATA\ndate: ${postDate}\nupdated: ${updated}\n${extra}\n---\n## SEO fixture\n\nPublished article in ${locale}.\n`
 	);
 };
 try {
@@ -152,6 +152,18 @@ try {
 			const html = await readFile(path.join(fixture, 'build', relative, 'index.html'), 'utf8');
 			const head = html.match(/<head>([\s\S]*?)<\/head>/)[1];
 			const verificationTags = [...head.matchAll(/<meta\b[^>]*>/g)].map(([tag]) => attributes(tag));
+			for (const field of ['og:image', 'twitter:image']) {
+				const tag = verificationTags.find((tag) => (tag.property ?? tag.name) === field);
+				assert.equal(
+					tag?.content,
+					relative.includes('blog/') ? `${site}/assets/icons/favicon-96x96.png` : undefined
+				);
+			}
+			assert.equal(
+				verificationTags.find((tag) => tag.name === 'twitter:card')?.content,
+				relative.includes('blog/') ? 'summary_large_image' : 'summary'
+			);
+
 			assert.deepEqual(
 				verificationTags.filter((tag) => tag.name === 'msvalidate.01').map((tag) => tag.content),
 				exportsEnabled ? ['bing-fixture'] : []
