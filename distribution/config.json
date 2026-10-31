@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"repository": "gitblogapp/svelte-gitblog-template",
 	"developmentRepository": "gitblogapp/svelte-gitblog-template-dev",
-	"minimumVersion": "2.0.0",
+	"minimumVersion": "1.0.0",
 	"files": [
 		".env.example",
 		".env.production",
@@ -41,5 +41,6 @@
 		"typescript-eslint",
 		"robots-parser",
 		"js-yaml"
-	]
+	],
+	"releaseChannel": "stable"
 }

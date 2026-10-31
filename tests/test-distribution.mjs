@@ -53,13 +53,28 @@ test('exports a clean user template and publishes resolvable stable revisions id
 		git(['config', 'user.name', 'test'], seed);
 		git(['config', 'user.email', 'test@example.com'], seed);
 		fs.writeFileSync(path.join(seed, 'old-development-test.txt'), 'remove me');
+		fs.mkdirSync(path.join(seed, '.gitblog'));
+		fs.writeFileSync(
+			path.join(seed, '.gitblog/release.json'),
+			JSON.stringify({ schemaVersion: 1, version: '2.0.2', revision: 'b'.repeat(40) })
+		);
 		git(['add', '.'], seed);
 		git(['commit', '-m', 'initial'], seed);
 		git(['push', 'origin', 'main'], seed);
+		git(['tag', 'v1.0.0'], seed);
+		git(['push', 'origin', 'refs/tags/v1.0.0'], seed);
+		const historicalTag = git(['rev-parse', 'refs/tags/v1.0.0'], remote);
 		const first = publish(output, remote);
-		assert.equal(first.version, '2.0.0');
+		assert.equal(first.version, '1.0.0');
 		const published = JSON.parse(git(['show', 'main:.gitblog/release.json'], remote));
 		assert.deepEqual(published, first);
+		assert.equal(first.channel, 'stable');
+		assert.equal(git(['rev-parse', 'refs/tags/v1.0.0'], remote), historicalTag);
+		assert.equal(
+			git(['rev-parse', 'refs/tags/stable/v1.0.0'], remote),
+			git(['rev-parse', 'main'], remote)
+		);
+		assert.equal(pkg.version, '1.0.0');
 		assert.ok(git(['ls-tree', '--name-only', first.revision], remote).includes('src'));
 		assert.ok(
 			!git(['ls-tree', '--name-only', 'main'], remote).includes('old-development-test.txt')
@@ -71,7 +86,7 @@ test('exports a clean user template and publishes resolvable stable revisions id
 		const data = JSON.parse(fs.readFileSync(provenance));
 		data.sourceRevision = 'a'.repeat(40);
 		fs.writeFileSync(provenance, JSON.stringify(data));
-		assert.equal(publish(output, remote).version, '2.0.1');
+		assert.equal(publish(output, remote).version, '1.0.1');
 		assert.equal(nextVersion('1.14.4', '2.0.0'), '2.0.0');
 		assert.equal(nextVersion('2.3.4', '2.0.0'), '2.3.5');
 	} finally {
