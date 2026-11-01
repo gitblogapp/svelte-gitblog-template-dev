@@ -63,8 +63,9 @@
 		"test:deployment": "node ./tests/test-deployment.mjs && node --test tests/test-pages-domains.mjs",
 		"distribution:export": "node scripts/distribution/export.mjs",
 		"test:distribution": "node --test tests/test-distribution.mjs",
-		"release:check": "npm run check && npm run test:authoring:build && npm run test:tts && npm run test:memberships && npm run test:history && npm run test:seo && npm run test:template && npm run test:distribution",
-		"test:deepl": "node ./tests/test-deepl-posts.mjs"
+		"release:check": "npm run check && npm run test:authoring:build && npm run test:tts && npm run test:memberships && npm run test:history && npm run test:seo && npm run test:template && npm run test:distribution && npm run test:seo-content",
+		"test:deepl": "node ./tests/test-deepl-posts.mjs",
+		"test:seo-content": "node tests/test-seo-content.mjs"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.3",
@@ -91,9 +92,9 @@
 		"vite": "^7.3.1"
 	},
 	"dependencies": {
-		"@gitblogapp/browser": "0.1.1",
-		"@gitblogapp/cli": "0.1.1",
-		"@gitblogapp/core": "0.1.1",
+		"@gitblogapp/browser": "file:vendor/gitblog-packages/gitblogapp-browser-0.2.0.tgz",
+		"@gitblogapp/cli": "file:vendor/gitblog-packages/gitblogapp-cli-0.2.0.tgz",
+		"@gitblogapp/core": "file:vendor/gitblog-packages/gitblogapp-core-0.2.0.tgz",
 		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.11.1",
 		"marked": "^18.0.0"

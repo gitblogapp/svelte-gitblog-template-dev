@@ -15,7 +15,14 @@
 		"tsconfig.json",
 		"vite.config.ts"
 	],
-	"directories": ["src", "static", "content", "docs/gitblog", "scripts"],
+	"directories": [
+		"src",
+		"static",
+		"content",
+		"docs/gitblog",
+		"scripts",
+		"vendor/gitblog-packages"
+	],
 	"metadata": [
 		".gitblog/authoring.json",
 		".gitblog/update-policy.json",
