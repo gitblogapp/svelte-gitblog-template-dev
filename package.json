@@ -60,7 +60,7 @@
 		"test:app-access": "node ./tests/test-app-access.mjs",
 		"images:optimize": "node ./scripts/optimize-images.mjs",
 		"test:images": "node --test tests/test-images.mjs",
-		"test:deployment": "node ./tests/test-deployment.mjs && node --test tests/test-pages-domains.mjs",
+		"test:deployment": "node ./tests/test-deployment.mjs && node --test tests/test-pages-domains.mjs tests/test-sync-pages-domain.mjs",
 		"distribution:export": "node scripts/distribution/export.mjs",
 		"test:distribution": "node --test tests/test-distribution.mjs",
 		"release:check": "npm run check && npm run test:authoring:build && npm run test:tts && npm run test:memberships && npm run test:history && npm run test:seo && npm run test:template && npm run test:distribution && npm run test:seo-content",
