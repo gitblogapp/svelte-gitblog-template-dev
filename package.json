@@ -25,7 +25,7 @@
 		"author:verify": "node ./scripts/authoring.mjs verify",
 		"author:deploy": "node ./scripts/authoring.mjs deploy",
 		"author:deploy-status": "node ./scripts/authoring.mjs deploy-status",
-		"test:authoring": "node ./tests/test-authoring.mjs",
+		"test:authoring": "node ./tests/test-authoring.mjs && node ./tests/test-translation-modes.mjs",
 		"test:authoring:build": "node ./tests/test-authoring-build.mjs",
 		"translate:posts": "npm run translate:content",
 		"prepare": "svelte-kit sync || echo ''",
@@ -94,9 +94,9 @@
 		"vite": "^7.3.1"
 	},
 	"dependencies": {
-		"@gitblogapp/browser": "0.2.2",
-		"@gitblogapp/cli": "0.2.2",
-		"@gitblogapp/core": "0.2.2",
+		"@gitblogapp/browser": "0.2.3",
+		"@gitblogapp/cli": "0.2.3",
+		"@gitblogapp/core": "0.2.3",
 		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.11.1",
 		"marked": "^18.0.0"
