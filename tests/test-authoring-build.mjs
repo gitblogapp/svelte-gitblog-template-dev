@@ -167,7 +167,12 @@ try {
 			'utf8'
 		);
 		assert.ok(html.includes(title));
-		assert.ok(html.includes('/uploads/build-test.jpg'));
+		const cover = rss.match(/<hub:cover>https:[^<]*(\/uploads\/gitblog-covers\/[a-f0-9]{64}\.webp)<\/hub:cover>/)?.[1];
+		assert.ok(cover, 'RSS must advertise the generated WebP cover');
+		assert.ok(html.includes(cover));
+		const coverMetadata = await sharp(path.join(fixture, 'build', cover)).metadata();
+		assert.equal(coverMetadata.format, 'webp');
+		assert.equal(coverMetadata.width, 960);
 		assert.ok(html.includes('hreflang="en"'));
 		assert.ok(rss.includes('<hub:taxonomy>'));
 		assert.ok(
